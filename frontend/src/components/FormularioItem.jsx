@@ -3,68 +3,52 @@ import { useState } from 'react';
 function FormularioItem({ agregarItem }) {
 
     const [data, setData] = useState({
-        id: '',
         nombre: '',
         categoriaId: '',
         estado: '',
-        puntuacion: null,
-        fechaRegistro: '',
-        fechaActividad: '',
-        notas: '',
-        atributos: [],
-        skillset: '',
-        difficultyTier: '',
-        length: '',
-        publisher: '',
-        activo: true
+        puntuacion: '',
+        notas: ''
     });
 
-    function crearItem(e) {
-        e.preventDefault();
-        const nuevoItem = {
-            id: crypto.randomUUID(),
-            nombre: data.nombre,
-            categoriaId: data.categoriaId,
-            estado: data.estado,
-            puntuacion: data.puntuacion,
-            fechaRegistro: new Date().toISOString(),
-            fechaActividad: new Date().toISOString(),
-            notas: data.notas,
-            activo: data.activo,
-            atributos: {
-                skillset: data.skillset,
-                difficultyTier: data.difficultyTier,
-                length: data.length,
-                publisher: data.publisher
-            }
-        }
-        agregarItem(nuevoItem);
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setData({
-            id: '',
+            ...data,
+            [name]: value
+        });
+    }
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        agregarItem(data);
+        setData({
             nombre: '',
             categoriaId: '',
             estado: '',
-            puntuacion: null,
-            fechaRegistro: '',
-            fechaActividad: '',
-            notas: '',
-            atributos: [],
-            skillset: '',
-            difficultyTier: '',
-            length: '',
-            publisher: '',
-            activo: true
-        });
+            puntuacion: '',
+            notas: ''
+        })
     }
 
     return (
         <div>
             <h2>Agregar Nuevo Nivel</h2>
-            <form onSubmit={crearItem}>
+            <form onSubmit={submitForm}>
+                <div>
+                    <label>Nombre:</label>
+                    <input
+                        type='text'
+                        name='nombre'
+                        value={data.nombre}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <button type='submit'>Agregar Nivel</button>
             </form>
         </div>
-    )
+    );
 
 }
 

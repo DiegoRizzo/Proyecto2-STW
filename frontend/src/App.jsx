@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import FormularioItem from './components/FormularioItem';
+import ListaItems from './components/ListaItems';
 
 function App() {
 
@@ -15,9 +17,33 @@ function App() {
     localStorage.setItem('items', JSON.stringify(items));
   }, [items]);
 
+  const agregarNivel = (item) => {
+
+    const nuevoNivel = {
+      id: crypto.randomUUID(),
+      nombre: item.nombre,
+      categoriaId: item.categoriaId,
+      estado: item.estado,
+      puntuacion: item.puntuacion,
+      fechaRegistro: new Date().toISOString(),
+      fechaActividad: new Date().toISOString(),
+      notas: item.notas,
+      atributos: [],
+      activo: true
+    };
+    
+    setItems(prevItems => [nuevoNivel, ...prevItems]);
+  }
+
   return (
     <div>
       <h1>Lista de Niveles</h1>
+      <div>
+        <FormularioItem agregarItem={agregarNivel} />
+      </div>
+      <div>
+        <ListaItems items={items} />
+      </div>
     </div>
   )
 }
