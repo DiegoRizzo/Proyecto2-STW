@@ -6,13 +6,13 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS niveles (
         id TEXT PRIMARY KEY,
         nombre TEXT NOT NULL,
-        categoriaId TEXT NOT NULL,
-        estado TEXT NOT NULL,
+        categoriaId TEXT,
+        estado TEXT,
         puntuacion REAL,
-        fechaRegistro TEXT NOT NULL,
+        fechaRegistro TEXT,
         fechaActividad TEXT,
         notas TEXT DEFAULT '',
-        atributos TEXT DEFAULT '{}',
+        atributos TEXT,
         activo INTEGER DEFAULT 1
     )
 `)
