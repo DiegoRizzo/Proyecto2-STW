@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import { uid } from "uid";
 import db from "../db/database.js";
 const router = express.Router();
