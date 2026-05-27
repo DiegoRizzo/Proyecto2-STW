@@ -11,7 +11,7 @@ db.exec(`
         puntuacion REAL,
         fechaRegistro TEXT,
         fechaActividad TEXT,
-        notas TEXT DEFAULT '',
+        notas TEXT,
         atributos TEXT,
         activo INTEGER DEFAULT 1
     )

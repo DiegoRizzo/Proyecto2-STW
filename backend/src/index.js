@@ -13,8 +13,13 @@ app.use(express.json());
 
 app.use('/api/items', itemsRouter);
 
-app.get('/api/health', (req, res) => {
-    res.json({ ok: true, message: 'Servidor backend funcionando correctamente' });
+app.get('/api/status', (req, res) => {
+    res.json({
+        ok: true,
+        status: "running",
+        puerto: PORT,
+        timestamp: new Date().toISOString()
+     });
 });
 
 app.use((err, req, res, next) => {

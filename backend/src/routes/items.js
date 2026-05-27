@@ -3,14 +3,14 @@ import { uid } from "uid";
 import db from "../db/database.js";
 const router = express.Router();
 
-// GET /api/items
-router.get("/", (req, res) => {
+// GET /api/items - Devuelve todos los niveles activos
+router.get("/api/items", (req, res) => {
     const items = db.prepare("SELECT * FROM niveles WHERE activo = 1").all();
     res.json(items);
 });
 
-// GET /api/items/:id
-router.get("/:id", (req, res) => {
+// GET /api/items/:id - Devuelve un nivel específico por su ID
+router.get("/api/items/:id", (req, res) => {
     const { id } = req.params;
     const item = db.prepare("SELECT * FROM niveles WHERE id = ? AND activo = 1").get(id);
     if (!item) {
@@ -19,8 +19,8 @@ router.get("/:id", (req, res) => {
     res.json(item);
 });
 
-// POST /api/items
-router.post("/", (req, res) => {
+// POST /api/items - Agrega un nuevo nivel
+router.post("/api/items", (req, res) => {
     const { nombre, categoriaId, estado, puntuacion, notas, atributos } = req.body;
     const id = uid(16);
     const fechaRegistro = new Date().toISOString();
@@ -35,8 +35,8 @@ router.post("/", (req, res) => {
     res.status(201).json({ id });
 });
 
-// PUT /api/items/:id
-router.put("/:id", (req, res) => {
+// PUT /api/items/:id - Actualiza los campos de un nivel existente
+router.put("/api/items/:id", (req, res) => {
     const { id } = req.params;
     const { nombre, categoriaId, estado, puntuacion, notas, atributos } = req.body;
     const fechaActividad = new Date().toISOString();
@@ -52,15 +52,15 @@ router.put("/:id", (req, res) => {
     res.json({ id });
 });
 
-// DELETE /api/items/:id
-router.delete("/:id", (req, res) => {
+// DELETE /api/items/:id - Archiva un nivel por su ID
+router.delete("/api/items/:id", (req, res) => {
     const { id } = req.params;
     db.prepare("UPDATE niveles SET activo = 0 WHERE id = ?").run(id);
     res.json({ id });
 });
 
-// POST /api/items/:id/registro
-router.post("/:id/registro", (req, res) => {
+// POST /api/items/:id/registro - Crea un nuevo registro de actividad
+router.post("/api/items/:id/registro", (req, res) => {
     const { id } = req.params;
     const { valor, notas } = req.body;
     const registroId = uid(16);

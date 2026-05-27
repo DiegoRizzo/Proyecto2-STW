@@ -1,7 +1,9 @@
 export function StorageProvider({ children }) {
+
   const [modo, setModoState] = useState(() =>
     localStorage.getItem('modo') || 'local'
   );
+
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -13,6 +15,7 @@ export function StorageProvider({ children }) {
 
   const obtenerItems = useCallback(async () => {
     setCargando(true); setError(null);
+
     try {
       if (modo === 'api') {
         const res = await fetch(`${API_URL}/api/items`);
@@ -25,6 +28,7 @@ export function StorageProvider({ children }) {
     } catch (err) {
       setError(err.message); return [];
     } finally { setCargando(false); }
+    
   }, [modo]);
 
   // guardarItem y eliminarItem siguen el mismo patrón if(modo === 'api')
