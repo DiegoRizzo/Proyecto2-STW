@@ -5,13 +5,13 @@ import ListaItems from './components/ListaItems';
 function App() {
 
   const [items, setItems] = useState(() => {
-  try {
-    const guardado = localStorage.getItem('items');
-    return guardado ? JSON.parse(guardado) : [];
-  } catch {
-    return [];
-  }
-});
+    try {
+      const guardado = localStorage.getItem('items');
+      return guardado ? JSON.parse(guardado) : [];
+    } catch {
+      return [];
+    }
+  });
 
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
@@ -28,12 +28,21 @@ function App() {
       fechaRegistro: new Date().toISOString(),
       fechaActividad: new Date().toISOString(),
       notas: item.notas,
-      atributos: [],
+      atributos: {},
       activo: true
     };
     
-    setItems(prevItems => [nuevoNivel, ...prevItems]);
+    setItems(itemsPrevios => [nuevoNivel, ...itemsPrevios]);
   }
+
+  const archivarNivel = (id) => {
+    setItems(itemsPrevios => itemsPrevios.map(item => {
+      if (item.id === id) {
+        return { ...item, activo: false };
+      }
+      return item;
+    }));
+  };
 
   return (
     <div>
@@ -42,7 +51,7 @@ function App() {
         <FormularioItem agregarItem={agregarNivel} />
       </div>
       <div>
-        <ListaItems items={items} />
+        <ListaItems items={items} archivarItem={archivarNivel} />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-function ItemCard({ item }) {
+function ItemCard({ item, archivarItem }) {
 
     const coloresProgreso = {
         espera: 'white',
@@ -16,7 +16,7 @@ function ItemCard({ item }) {
 
             <div>
                 <button type="button">Editar</button>
-                <button type="button">Archivar</button>
+                <button type="button" onClick={() => archivarItem(item.id)}>Archivar</button>
             </div>
         </div>
     )

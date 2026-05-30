@@ -20,7 +20,7 @@ function FormularioItem({ agregarItem }) {
 
     const submitForm = (e) => {
         e.preventDefault();
-        agregarNivel(data);
+        agregarItem(data);
         setData({
             nombre: '',
             categoriaId: '',
@@ -44,11 +44,11 @@ function FormularioItem({ agregarItem }) {
                     <label>Categoría del nivel: </label>
                     <select name="categoriaId" value={data.categoriaId} onChange={llenarDatos} required>
                         <option value="">(Seleccionar)</option>
-                        <option value="memory">Memory</option>
-                        <option value="nervecontrol">Nerve Control</option>
-                        <option value="overall">Overall</option>
-                        <option value="timings">Timings</option>
-                        <option value="duals">Duals</option>
+                        <option value="Memory">Memory</option>
+                        <option value="Nerve Control">Nerve Control</option>
+                        <option value="Overall">Overall</option>
+                        <option value="Timings">Timings</option>
+                        <option value="Duals">Duals</option>
                     </select>
                 </div>
 
@@ -56,9 +56,9 @@ function FormularioItem({ agregarItem }) {
                     <label>Estado: </label>
                     <select name="estado" value={data.estado} onChange={llenarDatos} required>
                         <option value="">(Seleccionar)</option>
-                        <option value="espera">En Espera</option>
-                        <option value="progreso">En Progreso</option>
-                        <option value="completado">Completado</option>
+                        <option value="En Espera">En Espera</option>
+                        <option value="En Progreso">En Progreso</option>
+                        <option value="Completado">Completado</option>
                     </select>
                 </div>
 
