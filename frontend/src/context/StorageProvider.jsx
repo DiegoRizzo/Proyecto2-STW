@@ -17,6 +17,7 @@ export function StorageProvider({ children }) {
     setCargando(true); setError(null);
 
     try {
+
       if (modo === 'api') {
         const res = await fetch(`${API_URL}/api/items`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -25,17 +26,19 @@ export function StorageProvider({ children }) {
         const data = localStorage.getItem('items');
         return data ? JSON.parse(data) : [];
       }
+
     } catch (err) {
       setError(err.message); return [];
+
     } finally { setCargando(false); }
     
   }, [modo]);
 
-  // guardarItem y eliminarItem siguen el mismo patrón if(modo === 'api')
   const guardarItem = async (item) => {
     setCargando(true); setError(null);
 
     try {
+
       if (modo === 'api') {
         const res = await fetch(`${API_URL}/api/items/${item.id || ''}`, {
           method: 'PUT',
@@ -45,22 +48,26 @@ export function StorageProvider({ children }) {
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return await res.json();
-        
+
       } else {
         const items = localStorage.getItem('items');
         const parsedItems = items ? JSON.parse(items) : [];
         const existingIndex = parsedItems.findIndex((i) => i.id === item.id);
+
         if (existingIndex !== -1) {
           parsedItems[existingIndex] = item;
         } else {
           parsedItems.push(item);
         }
+
         localStorage.setItem('items', JSON.stringify(parsedItems));
         return item;
       }
+
     } catch (err) {
       setError(err.message);
       return null;
+
     } finally {
       setCargando(false);
     }
@@ -70,19 +77,24 @@ export function StorageProvider({ children }) {
     setCargando(true); setError(null);
 
     try {
+
       if (modo === 'api') {
         const res = await fetch(`${API_URL}/api/items/${id}`, {
           method: 'DELETE'
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
       } else {
         const items = localStorage.getItem('items');
         const parsedItems = items ? JSON.parse(items) : [];
         const filteredItems = parsedItems.filter((i) => i.id !== id);
         localStorage.setItem('items', JSON.stringify(filteredItems));
       }
+
     } catch (err) {
       setError(err.message);
+      return null;
+      
     } finally {
       setCargando(false);
     }
