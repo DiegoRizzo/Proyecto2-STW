@@ -1,4 +1,8 @@
-export function StorageProvider({ children }) {
+import { createContext, useState, useCallback } from 'react';
+
+export const StorageContext = createContext();
+
+function StorageProvider({ children }) {
 
   const [modo, setModoState] = useState(() =>
     localStorage.getItem('modo') || 'local'
@@ -94,7 +98,7 @@ export function StorageProvider({ children }) {
     } catch (err) {
       setError(err.message);
       return null;
-      
+
     } finally {
       setCargando(false);
     }
@@ -109,3 +113,5 @@ export function StorageProvider({ children }) {
     </StorageContext.Provider>
   );
 }
+
+export default StorageProvider;

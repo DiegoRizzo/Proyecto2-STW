@@ -1,8 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import FormularioItem from './components/FormularioItem';
 import ListaItems from './components/ListaItems';
+import { StorageContext } from './context/StorageProvider';
+import { ThemeContext } from './context/ThemeProvider';
 
 function App() {
+
+  const { modo, setModo } = useContext(StorageContext);
+  const { tema, toggleTheme } = useContext(ThemeContext);
 
   const [items, setItems] = useState(() => {
     try {
@@ -47,6 +52,13 @@ function App() {
   return (
     <div>
       <h1>Lista de Niveles</h1>
+      <div>
+        <button onClick={toggleTheme}>Cambiar Tema</button>
+        <select value={modo} onChange={(e) => setModo(e.target.value)}>
+          <option value="local">Modo: Local</option>
+          <option value="api">Modo: API</option>
+        </select>
+      </div>
       <div>
         <FormularioItem agregarItem={agregarNivel} />
       </div>

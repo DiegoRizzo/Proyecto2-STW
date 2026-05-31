@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 
-const ThemeContext = createContext();
+export const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
 
@@ -24,4 +24,4 @@ function ThemeProvider({ children }) {
     );
 }
 
-export default ThemeContext;
+export default ThemeProvider;
