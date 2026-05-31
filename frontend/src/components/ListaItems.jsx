@@ -3,9 +3,9 @@ import { StorageContext } from '../context/StorageProvider';
 import ItemCard from './ItemCard';
 
 function ListaItems() {
-    const { items } = useContext(StorageContext);
+    const { items, eliminarItem } = useContext(StorageContext);
 
-    if (items.length === 0) {
+    if (!items || items.length === 0) {
         return (
             <div>
                 <h2>Mi Lista de Niveles</h2>
@@ -19,7 +19,7 @@ function ListaItems() {
             <h2>Mi Lista de Niveles</h2>
             
             {items.map(item => (
-                <ItemCard key={item.id} item={item} />
+                <ItemCard key={item.id} item={item} archivarItem={eliminarItem} />
             ))}
         </div>
     );

@@ -86,7 +86,7 @@ function FormularioItem() {
 
                 <div>
                     <label>Notas: </label>
-                    <input type="text" name="notas" value={data.notas} placeholder="(Opcional)" onChange={llenarDatos} required/>
+                    <input type="text" name="notas" value={data.notas} placeholder="(Opcional)" onChange={llenarDatos}/>
                 </div>
 
                 <button type="submit">

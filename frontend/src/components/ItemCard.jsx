@@ -1,8 +1,6 @@
-import { useContext } from 'react';
-import { StorageContext } from '../context/StorageProvider';
 import { CATEGORIAS } from '../utils/categorias';
 
-function ItemCard({ item }) {
+function ItemCard({ item, archivarItem }) {
 
     const categoriaNivel = CATEGORIAS.find(categoria => categoria.id === item.categoriaId);
 
@@ -13,7 +11,7 @@ function ItemCard({ item }) {
             <p>Categoria: {item.categoriaId}</p>
             <p>Estado: {item.estado}</p>
             <p>Puntuacion: {item.puntuacion}</p>
-            <p>Notas: {item.notas}</p>
+            <p>Notas: {item.notas || 'N/A'}</p>
 
             <div>
                 <button type="button">Editar</button>
