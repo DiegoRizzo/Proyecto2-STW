@@ -3,7 +3,7 @@ import cors from 'cors';
 import itemsRouter from './routes/items.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:5173'

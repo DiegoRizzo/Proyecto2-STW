@@ -32,6 +32,61 @@ export function StorageProvider({ children }) {
   }, [modo]);
 
   // guardarItem y eliminarItem siguen el mismo patrón if(modo === 'api')
+  const guardarItem = async (item) => {
+    setCargando(true); setError(null);
+
+    try {
+      if (modo === 'api') {
+        const res = await fetch(`${API_URL}/api/items/${item.id || ''}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item)
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+        
+      } else {
+        const items = localStorage.getItem('items');
+        const parsedItems = items ? JSON.parse(items) : [];
+        const existingIndex = parsedItems.findIndex((i) => i.id === item.id);
+        if (existingIndex !== -1) {
+          parsedItems[existingIndex] = item;
+        } else {
+          parsedItems.push(item);
+        }
+        localStorage.setItem('items', JSON.stringify(parsedItems));
+        return item;
+      }
+    } catch (err) {
+      setError(err.message);
+      return null;
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  const eliminarItem = async (id) => {
+    setCargando(true); setError(null);
+
+    try {
+      if (modo === 'api') {
+        const res = await fetch(`${API_URL}/api/items/${id}`, {
+          method: 'DELETE'
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      } else {
+        const items = localStorage.getItem('items');
+        const parsedItems = items ? JSON.parse(items) : [];
+        const filteredItems = parsedItems.filter((i) => i.id !== id);
+        localStorage.setItem('items', JSON.stringify(filteredItems));
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setCargando(false);
+    }
+  };
 
   return (
     <StorageContext.Provider value={{
