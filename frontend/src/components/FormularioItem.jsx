@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext, useRef, useEffect } from 'react';
+import { StorageContext } from '../context/StorageProvider';
 
-function FormularioItem({ agregarItem }) {
+function FormularioItem() {
+
+    const { guardarItem } = useContext(StorageContext);
 
     const [data, setData] = useState({
         nombre: '',
@@ -20,7 +23,21 @@ function FormularioItem({ agregarItem }) {
 
     const submitForm = (e) => {
         e.preventDefault();
-        agregarItem(data);
+        
+        const nuevoNivel = {
+            id: crypto.randomUUID(),
+            nombre: data.nombre,
+            categoriaId: data.categoriaId,
+            estado: data.estado,
+            puntuacion: data.puntuacion,
+            fechaRegistro: new Date().toISOString(),
+            fechaActividad: new Date().toISOString(),
+            notas: data.notas,
+            atributos: {},
+            activo: 1
+        };
+        guardarItem(nuevoNivel);
+
         setData({
             nombre: '',
             categoriaId: '',

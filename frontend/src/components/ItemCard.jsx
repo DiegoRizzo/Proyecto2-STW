@@ -1,13 +1,14 @@
-function ItemCard({ item, archivarItem }) {
+import { useContext } from 'react';
+import { StorageContext } from '../context/StorageProvider';
+import { CATEGORIAS } from '../utils/categorias';
 
-    const coloresProgreso = {
-        espera: 'white',
-        progreso: 'yellow',
-        completado: 'green'
-    };
+function ItemCard({ item }) {
+
+    const categoriaNivel = CATEGORIAS.find(categoria => categoria.id === item.categoriaId);
+
 
     return (
-        <div>
+        <div style={{backgroundColor: categoriaNivel ? categoriaNivel.color : '#fff', border: '2px solid black', padding: '10px', margin: '10px', borderRadius: '5px'}}>
             <h3>{item.nombre}</h3>
             <p>Categoria: {item.categoriaId}</p>
             <p>Estado: {item.estado}</p>

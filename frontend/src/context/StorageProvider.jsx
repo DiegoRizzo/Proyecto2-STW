@@ -8,6 +8,15 @@ function StorageProvider({ children }) {
     localStorage.getItem('modo') || 'local'
   );
 
+  const [items, setItems] = useState(() => {
+    try {
+      const guardado = localStorage.getItem('items');
+      return guardado ? JSON.parse(guardado) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
@@ -24,11 +33,18 @@ function StorageProvider({ children }) {
 
       if (modo === 'api') {
         const res = await fetch(`${API_URL}/api/items`);
+
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
+
+        const data = await res.json();
+        setItems(data);
+        return data;
+        
       } else {
         const data = localStorage.getItem('items');
-        return data ? JSON.parse(data) : [];
+        const parsed = data ? JSON.parse(data) : [];
+        setItems(parsed);
+        return parsed;
       }
 
     } catch (err) {
@@ -51,20 +67,28 @@ function StorageProvider({ children }) {
         });
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
+        const result = await res.json();
+        const existingIndex = items.findIndex((i) => i.id === item.id);
+        if (existingIndex !== -1) {
+          setItems(items.map((i) => i.id === item.id ? result : i));
+        } else {
+          setItems([result, ...items]);
+        }
+        return result;
 
       } else {
-        const items = localStorage.getItem('items');
-        const parsedItems = items ? JSON.parse(items) : [];
+        const parsedItems = items || [];
         const existingIndex = parsedItems.findIndex((i) => i.id === item.id);
 
+        let updated;
         if (existingIndex !== -1) {
-          parsedItems[existingIndex] = item;
+          updated = parsedItems.map((i) => i.id === item.id ? item : i);
         } else {
-          parsedItems.push(item);
+          updated = [item, ...parsedItems];
         }
 
-        localStorage.setItem('items', JSON.stringify(parsedItems));
+        setItems(updated);
+        localStorage.setItem('items', JSON.stringify(updated));
         return item;
       }
 
@@ -87,11 +111,11 @@ function StorageProvider({ children }) {
           method: 'DELETE'
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        setItems(items.filter((i) => i.id !== id));
 
       } else {
-        const items = localStorage.getItem('items');
-        const parsedItems = items ? JSON.parse(items) : [];
-        const filteredItems = parsedItems.filter((i) => i.id !== id);
+        const filteredItems = items.filter((i) => i.id !== id);
+        setItems(filteredItems);
         localStorage.setItem('items', JSON.stringify(filteredItems));
       }
 
@@ -106,7 +130,7 @@ function StorageProvider({ children }) {
 
   return (
     <StorageContext.Provider value={{
-      modo, setModo, cargando, error,
+      items, setItems, modo, setModo, cargando, error,
       obtenerItems, guardarItem, eliminarItem,
     }}>
       {children}

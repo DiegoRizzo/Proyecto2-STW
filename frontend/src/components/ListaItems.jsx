@@ -1,9 +1,11 @@
+import { useContext } from 'react';
+import { StorageContext } from '../context/StorageProvider';
 import ItemCard from './ItemCard';
 
-function ListaItems({ items, archivarItem }) {
-    const nivelesActivos = items.filter(item => item.activo === true);
+function ListaItems() {
+    const { items } = useContext(StorageContext);
 
-    if (nivelesActivos.length === 0) {
+    if (items.length === 0) {
         return (
             <div>
                 <h2>Mi Lista de Niveles</h2>
@@ -16,8 +18,8 @@ function ListaItems({ items, archivarItem }) {
         <div>
             <h2>Mi Lista de Niveles</h2>
             
-            {nivelesActivos.map(item => (
-                <ItemCard key={item.id} item={item} archivarItem={archivarItem} />
+            {items.map(item => (
+                <ItemCard key={item.id} item={item} />
             ))}
         </div>
     );
