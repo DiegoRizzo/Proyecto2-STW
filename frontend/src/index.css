@@ -31,24 +31,24 @@
 }
 
 body[data-theme="claro"] {
-  --color-fondo:      #f7f7f8;
+  --color-bg:      #f7f7f8;
   --color-superficie: #ffffff;
-  --color-texto:      #1a1a1a;
+  --color-text:      #1a1a1a;
   --color-acento:     #4f46e5;
   --color-borde:      #e5e7eb;
 }
 
 body[data-theme="oscuro"] {
-  --color-fondo:      #0f172a;
+  --color-bg:      #0f172a;
   --color-superficie: #1e293b;
-  --color-texto:      #f1f5f9;
+  --color-text:      #f1f5f9;
   --color-acento:     #818cf8;
   --color-borde:      #334155;
 }
 
 body {
-  background: var(--color-fondo);
-  color: var(--color-texto);
+  background: var(--color-bg);
+  color: var(--color-bg);
   transition: background 0.2s, color 0.2s;
 }
 
