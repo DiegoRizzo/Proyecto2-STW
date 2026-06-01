@@ -50,6 +50,18 @@ function FormularioItem() {
         inputRef.current.focus();
     };
 
+    useEffect(() => {
+        const handler = (e) => {
+            if (e.ctrlKey && e.key.toLowerCase() === 'n') {
+                e.preventDefault();
+                inputRef.current.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, []);
+
     return (
         <div>
             <h2>Agregar Nuevo Nivel</h2>
