@@ -68,28 +68,37 @@ function StorageProvider({ children }) {
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const result = await res.json();
-        const existingIndex = items.findIndex((i) => i.id === item.id);
-        if (existingIndex !== -1) {
-          setItems(items.map((i) => i.id === item.id ? result : i));
-        } else {
-          setItems([result, ...items]);
-        }
+
+        setItems((prev) => {
+          const index = prev.findIndex((i) => i.id === result.id);
+          if (index !== -1) {
+            return prev.map((i) => i.id === result.id ? result : i);
+          }
+          return [result, ...prev];
+        });
+
         return result;
 
       } else {
-        const parsedItems = items || [];
-        const existingIndex = parsedItems.findIndex((i) => i.id === item.id);
+        const current = items || [];
+
+        let itemToSave = { ...item };
+        if (!itemToSave.id) {
+          itemToSave.id = crypto.randomUUID();
+        }
+
+        const existingIndex = current.findIndex((i) => i.id === itemToSave.id);
 
         let updated;
         if (existingIndex !== -1) {
-          updated = parsedItems.map((i) => i.id === item.id ? item : i);
+          updated = current.map((i) => i.id === itemToSave.id ? { ...i, ...itemToSave, fechaActividad: new Date().toISOString() } : i);
         } else {
-          updated = [item, ...parsedItems];
+          updated = [{ ...itemToSave, fechaRegistro: itemToSave.fechaRegistro || new Date().toISOString(), fechaActividad: new Date().toISOString() }, ...current];
         }
 
         setItems(updated);
         localStorage.setItem('items', JSON.stringify(updated));
-        return item;
+        return itemToSave;
       }
 
     } catch (err) {
