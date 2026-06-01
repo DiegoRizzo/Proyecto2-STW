@@ -4,6 +4,7 @@ import { StorageContext } from '../context/StorageProvider';
 function FormularioItem() {
 
     const { guardarItem } = useContext(StorageContext);
+    const inputRef = useRef(null);
 
     const [data, setData] = useState({
         nombre: '',
@@ -45,6 +46,8 @@ function FormularioItem() {
             puntuacion: '',
             notas: ''
         });
+
+        inputRef.current.focus();
     };
 
     return (
@@ -54,7 +57,7 @@ function FormularioItem() {
 
                 <div>
                     <label>Nombre del nivel: </label>
-                    <input type="text" name="nombre" value={data.nombre} placeholder="Escribe aquí el nombre" onChange={llenarDatos} required/>
+                    <input type="text" name="nombre" value={data.nombre} placeholder="Escribe aquí el nombre" onChange={llenarDatos} ref={inputRef} required/>
                 </div>
 
                 <div>
