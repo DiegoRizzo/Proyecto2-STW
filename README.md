@@ -1,4 +1,4 @@
-<h1 align="center">Proyecto Final - Fase 1: Sistemas y Tecnologías Web</h1>
+<h1 align="center">Proyecto Final: Sistemas y Tecnologías Web</h1>
 
 <h2 align="center">Tracker de Niveles de Geometry Dash</h2>
 

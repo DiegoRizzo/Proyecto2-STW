@@ -63,7 +63,7 @@ function FormularioItem() {
     }, []);
 
     return (
-        <div>
+        <div className="formulario-item">
             <h2>Agregar Nuevo Nivel</h2>
             <form onSubmit={submitForm}>
 
@@ -104,7 +104,7 @@ function FormularioItem() {
                     <input type="text" name="notas" value={data.notas} placeholder="(Opcional)" onChange={llenarDatos}/>
                 </div>
 
-                <button type="submit">
+                <button type="submit" className="btn">
                     Agregar Nivel
                 </button>
                 

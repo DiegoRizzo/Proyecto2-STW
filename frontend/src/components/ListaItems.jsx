@@ -22,7 +22,7 @@ function ListaItems() {
     }
 
     return (
-        <div>
+        <div className="lista-items">
             <h2>Mi Lista de Niveles</h2>
             
             <div ref={lastRef}>

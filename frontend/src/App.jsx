@@ -24,14 +24,17 @@ function App() {
 
   return (
     <div>
-      <h1>Lista de Niveles</h1>
 
-      <div>
+      <div className="controls">
         <button onClick={toggleTheme}>Cambiar Tema</button>
         <select value={modo} onChange={(e) => setModo(e.target.value)}>
           <option value="local">Modo: Local</option>
           <option value="api">Modo: API</option>
         </select>
+      </div>
+      
+      <div>
+        <h1>Lista de Niveles</h1>
       </div>
 
       <div>
