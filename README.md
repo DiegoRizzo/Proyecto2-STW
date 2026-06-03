@@ -52,7 +52,15 @@ npm install
 <p>Ahora tienes tus dos servidores corriendo localmente. El servidor del backend estará corriendo en el puerto 3001, mientras que el servidor del frontend estará corriendo en el puerto 5173.</p>
 
 <h3>Funcionamiento del App</h3>
-<p>Aquí se encuentran unos screenshots que muestran cómo se ve la aplicación:</p>
+<p>Así se ve la aplicación inicialmente, en temas claro y oscuro, respectivamente:</p>
+<img src="screenshots/inicio-claro.png" height="500px">
+<img src="screenshots/inicio-oscuro.png" height="500px">
+<p></p>
+
+<p>Así se ve la aplicación con varios registros de niveles creados, en temas claro y oscuro, respectivamente:</p>
+<img src="screenshots/lista-claro.png" height="500px">
+<img src="screenshots/lista-oscuro.png" height="500px">
+
 <hr>
 
 <p>Creado por Diego André Chún Rizzo - 22955</p>
