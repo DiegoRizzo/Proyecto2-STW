@@ -17,6 +17,7 @@ function ListaItems() {
             <div>
                 <h2>Mi Lista de Niveles</h2>
                 <p>La lista de niveles está vacía.</p>
+                <br></br>
             </div>
         );
     }
@@ -25,7 +26,7 @@ function ListaItems() {
         <div className="lista-items">
             <h2>Mi Lista de Niveles</h2>
             
-            <div ref={lastRef}>
+            <div ref={lastRef} className="items-container">
                 {items.map(item => (
                 <ItemCard key={item.id} item={item} archivarItem={eliminarItem} />
                 ))}

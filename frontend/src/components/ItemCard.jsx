@@ -5,7 +5,7 @@ function ItemCard({ item, archivarItem }) {
     const categoriaNivel = CATEGORIAS.find(categoria => categoria.id === item.categoriaId);
 
     return (
-        <div style={{backgroundColor: categoriaNivel ? categoriaNivel.color : '#fff'}} className="item-card">
+        <div style={{backgroundColor: categoriaNivel ? categoriaNivel.color : '#fff', color: 'hsla(0, 100%, 0%, 0.7)'}} className="item-card">
             <h3>{item.nombre}</h3>
             <p>Categoria: {item.categoriaId}</p>
             <p>Estado: {item.estado}</p>
