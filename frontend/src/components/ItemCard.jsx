@@ -7,9 +7,9 @@ function ItemCard({ item, archivarItem }) {
     return (
         <div style={{backgroundColor: categoriaNivel ? categoriaNivel.color : '#fff', color: 'hsla(0, 100%, 0%, 0.7)'}} className="item-card">
             <h3>{item.nombre}</h3>
-            <p>Categoria: {item.categoriaId}</p>
+            <p>Categoría: {item.categoriaId}</p>
             <p>Estado: {item.estado}</p>
-            <p>Puntuacion: {item.puntuacion}</p>
+            <p>Puntuación: {item.puntuacion}</p>
             <p>Notas: {item.notas || 'N/A'}</p>
 
             <div>

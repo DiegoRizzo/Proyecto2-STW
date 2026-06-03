@@ -219,7 +219,7 @@ p {
   padding: 10px 10px;
   border-radius: 8px;
   border: 1px solid var(--color-border);
-  background: transparent;
+  background: var(--color-surface);
   color: var(--color-text);
   outline: none;
   transition: box-shadow 160ms var(--ease), border-color 160ms var(--ease);
@@ -229,7 +229,7 @@ p {
 .formulario-item textarea:focus,
 .formulario-item select:focus {
   box-shadow: var(--focus-ring);
-  border-color: var(--color-accent);
+  border-color: var(--color-form-btn);
 }
 
 .formulario-item .btn {

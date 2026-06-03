@@ -34,7 +34,7 @@ function App() {
       </div>
       
       <div>
-        <h1>Lista de Niveles</h1>
+        <h1>Lista de Niveles de Geometry Dash</h1>
       </div>
 
       <div>
